@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question / 提问
+    url: https://github.com/huangpufan/vibe-mermaid/discussions
+    about: Ask questions and discuss with the community / 在讨论区提问和交流
+  - name: Documentation (English)
+    url: https://github.com/huangpufan/vibe-mermaid#readme
+    about: Check the README for more information
+  - name: 中文文档
+    url: https://github.com/huangpufan/vibe-mermaid/blob/main/README_ZH.md
+    about: 查看中文 README 获取更多信息

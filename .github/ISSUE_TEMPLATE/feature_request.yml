@@ -1,0 +1,80 @@
+name: Feature Request / 功能建议
+description: Suggest an idea for this project / 为这个项目提出一个想法
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a feature! / 感谢你提出功能建议！
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / 问题
+      description: Is your feature request related to a problem? Please describe. / 你的功能请求是否与某个问题相关？请描述。
+      placeholder: A clear description of what the problem is. Ex. I'm always frustrated when... / 清晰描述问题是什么。例如：当...时我总是很沮丧
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution / 建议的解决方案
+      description: Describe the solution you'd like. / 描述你想要的解决方案。
+      placeholder: A clear description of what you want to happen. / 清晰描述你希望发生什么。
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered / 考虑过的替代方案
+      description: Describe any alternative solutions or features you've considered. / 描述你考虑过的任何替代解决方案或功能。
+      placeholder: Any alternatives... / 任何替代方案...
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category / 类别
+      description: What category does this feature belong to? / 这个功能属于哪个类别？
+      options:
+        - AI Generation / AI 生成
+        - Editor / 编辑器
+        - Preview / 预览
+        - Export / 导出
+        - Theme / 主题
+        - i18n / 国际化
+        - UI/UX
+        - Performance / 性能
+        - Other / 其他
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority / 优先级
+      description: How important is this feature to you? / 这个功能对你有多重要？
+      options:
+        - Nice to have / 有的话更好
+        - Would be helpful / 会有帮助
+        - Important / 重要
+        - Critical / 关键
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context / 其他信息
+      description: Add any other context, mockups, or screenshots about the feature request. / 添加关于功能请求的其他上下文、原型或截图。
+      placeholder: Add any other context... / 添加其他相关信息...
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution / 贡献意愿
+      description: Would you be willing to contribute to this feature? / 你愿意为这个功能做贡献吗？
+      options:
+        - label: I would be willing to submit a PR for this feature / 我愿意为这个功能提交 PR
