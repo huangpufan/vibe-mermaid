@@ -6,7 +6,6 @@ import {
   DIAGRAM_TEMPLATES,
   TEMPLATE_CATEGORIES,
   getTemplatesByCategory,
-  searchTemplates,
   type DiagramTemplate,
 } from '@/lib/templates';
 
@@ -30,13 +29,23 @@ export default function TemplateSelector({ onClose }: TemplateSelectorProps) {
       templates = getTemplatesByCategory(selectedCategory as DiagramTemplate['category']);
     }
 
-    // 按搜索关键词过滤
+    // 按搜索关键词过滤（在分类过滤结果基础上）
     if (searchQuery.trim()) {
-      templates = searchTemplates(searchQuery, locale);
+      const query = searchQuery.toLowerCase();
+      templates = templates.filter((template) => {
+        const nameMatch =
+          template.name.toLowerCase().includes(query) ||
+          template.nameZh.includes(query);
+        const descMatch =
+          template.description.toLowerCase().includes(query) ||
+          template.descriptionZh.includes(query);
+        const tagMatch = template.tags.some((tag) => tag.toLowerCase().includes(query));
+        return nameMatch || descMatch || tagMatch;
+      });
     }
 
     return templates;
-  }, [selectedCategory, searchQuery, locale]);
+  }, [selectedCategory, searchQuery]);
 
   const handleSelectTemplate = (template: DiagramTemplate) => {
     setCode(template.code);

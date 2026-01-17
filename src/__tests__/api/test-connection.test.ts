@@ -23,6 +23,10 @@ vi.mock('openai', () => ({
 // 获取 mock 的 OpenAI 构造函数引用
 const MockedOpenAI = MockOpenAI;
 
+// 默认测试配置
+const DEFAULT_BASE_URL = 'https://api.deepseek.com';
+const DEFAULT_MODEL = 'deepseek-chat';
+
 describe('Test Connection API Route', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -79,6 +83,19 @@ describe('Test Connection API Route', () => {
       expect(data.success).toBe(false);
       expect(data.error).toBeDefined();
     });
+
+    it('缺少 baseUrl 或 model 应该返回失败', async () => {
+      const request = createRequest({
+        apiKey: 'valid-api-key',
+      });
+
+      const response = await POST(request);
+      const data = await response.json();
+
+      expect(response.status).toBe(200);
+      expect(data.success).toBe(false);
+      expect(data.error).toBeDefined();
+    });
   });
 
   describe('连接测试成功', () => {
@@ -89,6 +106,8 @@ describe('Test Connection API Route', () => {
 
       const request = createRequest({
         apiKey: 'valid-api-key',
+        baseUrl: DEFAULT_BASE_URL,
+        model: DEFAULT_MODEL,
       });
 
       const response = await POST(request);
@@ -105,6 +124,8 @@ describe('Test Connection API Route', () => {
 
       const request = createRequest({
         apiKey: 'valid-api-key',
+        baseUrl: DEFAULT_BASE_URL,
+        model: DEFAULT_MODEL,
       });
 
       await POST(request);
@@ -124,6 +145,8 @@ describe('Test Connection API Route', () => {
 
       const request = createRequest({
         apiKey: 'invalid-key',
+        baseUrl: DEFAULT_BASE_URL,
+        model: DEFAULT_MODEL,
         locale: 'zh',
       });
 
@@ -140,6 +163,8 @@ describe('Test Connection API Route', () => {
 
       const request = createRequest({
         apiKey: 'test-key',
+        baseUrl: DEFAULT_BASE_URL,
+        model: DEFAULT_MODEL,
         locale: 'zh',
       });
 
@@ -156,6 +181,8 @@ describe('Test Connection API Route', () => {
 
       const request = createRequest({
         apiKey: 'test-key',
+        baseUrl: DEFAULT_BASE_URL,
+        model: DEFAULT_MODEL,
         locale: 'zh',
       });
 
@@ -172,6 +199,8 @@ describe('Test Connection API Route', () => {
 
       const request = createRequest({
         apiKey: 'test-key',
+        baseUrl: DEFAULT_BASE_URL,
+        model: DEFAULT_MODEL,
         locale: 'zh',
       });
 
@@ -188,6 +217,8 @@ describe('Test Connection API Route', () => {
 
       const request = createRequest({
         apiKey: 'test-key',
+        baseUrl: DEFAULT_BASE_URL,
+        model: DEFAULT_MODEL,
         locale: 'zh',
       });
 
@@ -204,6 +235,8 @@ describe('Test Connection API Route', () => {
 
       const request = createRequest({
         apiKey: 'test-key',
+        baseUrl: DEFAULT_BASE_URL,
+        model: DEFAULT_MODEL,
         locale: 'zh',
       });
 
@@ -222,6 +255,8 @@ describe('Test Connection API Route', () => {
 
       const request = createRequest({
         apiKey: 'invalid-key',
+        baseUrl: DEFAULT_BASE_URL,
+        model: DEFAULT_MODEL,
         locale: 'zh',
       });
 
@@ -236,6 +271,8 @@ describe('Test Connection API Route', () => {
 
       const request = createRequest({
         apiKey: 'invalid-key',
+        baseUrl: DEFAULT_BASE_URL,
+        model: DEFAULT_MODEL,
         locale: 'en',
       });
 
@@ -255,6 +292,7 @@ describe('Test Connection API Route', () => {
       const request = createRequest({
         apiKey: 'test-key',
         baseUrl: 'https://custom-api.com',
+        model: DEFAULT_MODEL,
       });
 
       await POST(request);
@@ -275,6 +313,7 @@ describe('Test Connection API Route', () => {
 
       const request = createRequest({
         apiKey: 'test-key',
+        baseUrl: DEFAULT_BASE_URL,
         model: 'custom-model',
       });
 
@@ -287,26 +326,28 @@ describe('Test Connection API Route', () => {
       );
     });
 
-    it('应该使用默认的 baseUrl 和 model', async () => {
+    it('应该使用提供的 baseUrl 和 model', async () => {
       mockCreate.mockResolvedValue({
         choices: [{ message: { content: 'hi' } }],
       });
 
       const request = createRequest({
         apiKey: 'test-key',
+        baseUrl: DEFAULT_BASE_URL,
+        model: DEFAULT_MODEL,
       });
 
       await POST(request);
 
       expect(MockedOpenAI).toHaveBeenCalledWith(
         expect.objectContaining({
-          baseURL: 'https://api.deepseek.com',
+          baseURL: DEFAULT_BASE_URL,
         })
       );
 
       expect(mockCreate).toHaveBeenCalledWith(
         expect.objectContaining({
-          model: 'deepseek-chat',
+          model: DEFAULT_MODEL,
         })
       );
     });

@@ -207,7 +207,7 @@ describe('Prompt 效果测试 - 复杂场景', () => {
     expect(code.length).toBeGreaterThan(100); // 复杂流程应该有足够的代码量
     
     // 检查是否有分支结构
-    const hasBranch = /\{.*\}|-->.*\|.*\|/s.test(code);
+    const hasBranch = /\{[\s\S]*\}|-->[\s\S]*\|[\s\S]*\|/.test(code);
     expect(hasBranch).toBe(true);
   }, 30000);
 
